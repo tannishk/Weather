@@ -1,0 +1,90 @@
+ <!DOCTYPE html>
+  <html>
+    <head>
+      <script>
+      function Get(yourUrl){
+        // alert('hii');
+var Httpreq = new XMLHttpRequest(); // a new request
+Httpreq.open("GET",yourUrl,false);
+Httpreq.send(null);
+return Httpreq.responseText;          
+}
+      function message()
+      {
+        //var reply;
+
+        var city_name = document.getElementById('city_name').value;
+        //alert(city_name);
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://api.openweathermap.org/data/2.5/weather?q="+city_name+"&appid=44db6a862fba0b067b1930da0d769e98";
+        //alert(url);
+        var reply = JSON.parse(Get(url));
+
+        var temp1 = reply.main.temp - 273.15;
+        var mintemp = reply.main.temp_min - 273.15;
+        var maxtemp = reply.main.temp_max - 273.15;
+        var output="Main:"+reply.weather[0].main+"<br />"+"Temprature:"+temp1+"<br />"+"Pressure:"+reply.main.pressure+"hpa"+"<br />"+"Humidity:"+reply.main.humidity+"%<br />"+"Minimum Temprature:"+mintemp+"<br />"+"Max Temprature:"+maxtemp+"<br />";
+       // alert(output);
+        document.getElementById('weatherinfo').innerHTML = output;
+
+      }
+      </script>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <nav class="orange darken-3" role="navigation">
+    <div class="nav-wrapper container">
+      <a href="#" class="brand-logo">Weather App</a>
+      
+    </div>
+  </nav>
+  <div class="divider"></div>
+  <div class="section">
+      <div class="container">
+        <form class="col s12 m12 l12">
+          <div class="row">
+            <div class="input-field">
+              <i class="material-icons prefix">today</i>
+              <input placeholder="City Name eg.Delhi" id="city_name" type="text" class="validate" name="city_name">
+              <label for="city_name">City Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <button type="submit" onclick="message(); return false;"  class="btn waves-effect waves-light"  name="action">
+              Search
+            <i class="material-icons right">send</i>
+          </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+    <div class="divider"></div>
+  <div class="section">
+      <div class="container">
+          <div class="card teal darken-4">
+            <div class="card-content white-text">
+              <span class="card-title">Weather Info:</span>
+              <p id="weatherinfo"></p>
+            </div>
+            <div class="card-action">
+              <a href="#city_name">Enter Another City</a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    </body>
+  </html>
